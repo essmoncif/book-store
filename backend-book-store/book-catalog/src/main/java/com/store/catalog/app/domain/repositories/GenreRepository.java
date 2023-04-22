@@ -1,0 +1,11 @@
+package com.store.catalog.app.domain.repositories;
+
+import com.store.catalog.app.domain.entities.GenreEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
+
+@Repository
+public interface GenreRepository extends JpaRepository<GenreEntity, UUID> {
+}
