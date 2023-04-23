@@ -3,6 +3,7 @@ package com.store.catalog.app.services.handlers;
 import com.store.catalog.app.domain.entities.BookEntity;
 import com.store.catalog.app.domain.models.BookDetailsRecord;
 import com.store.catalog.app.domain.repositories.BookRepository;
+import com.store.catalog.app.services.exceptions.BadRequestException;
 import com.store.catalog.app.services.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,15 @@ public class BookService {
     }
 
     public BookDetailsRecord getBookById(final String id) {
-        Optional<BookEntity> optionalBookEntity = this.bookRepository.findById(UUID.fromString(id));
-        BookEntity bookEntity = optionalBookEntity.orElseThrow(() -> new NotFoundException(BOOK_NOT_FOUND_SEARCH_BY_ID.getMessage(id)));
-        return BookDetailsRecord.bookEntityToBookDetailsRecord(bookEntity);
+        try {
+            UUID uuid = UUID.fromString(id);
+            Optional<BookEntity> optionalBookEntity = this.bookRepository.findById(uuid);
+            BookEntity bookEntity = optionalBookEntity.orElseThrow(() -> new NotFoundException(BOOK_NOT_FOUND_SEARCH_BY_ID.getMessage(id)));
+            return BookDetailsRecord.bookEntityToBookDetailsRecord(bookEntity);
+        }catch (IllegalArgumentException e) {
+            throw new BadRequestException(e.getMessage());
+        }
+
     }
 
     public BookDetailsRecord getBookByTitle(final String title) {
