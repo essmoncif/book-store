@@ -1,5 +1,6 @@
 package com.store.catalog.app.domain.entities;
 
+import com.store.catalog.app.domain.common.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Builder
 @EqualsAndHashCode
 @Entity(name = "Author")
-public class AuthorEntity {
+public class AuthorEntity extends AuditableEntity<String> {
 
     @Id
     @GeneratedValue(generator = "UUID")
