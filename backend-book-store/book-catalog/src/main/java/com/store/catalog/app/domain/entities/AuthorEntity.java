@@ -1,22 +1,19 @@
 package com.store.catalog.app.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode
 @Entity(name = "Author")
 public class AuthorEntity {
 
@@ -31,5 +28,6 @@ public class AuthorEntity {
     private String description;
 
     @ManyToMany(mappedBy = "authors")
-    private Set<BookEntity> books = new HashSet<>();
+    private List<BookEntity> books;
+
 }

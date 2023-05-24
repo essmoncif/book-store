@@ -1,20 +1,17 @@
 package com.store.catalog.app.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity(name = "Book")
 public class BookEntity {
 
@@ -30,16 +27,18 @@ public class BookEntity {
 
     private LocalDateTime editionDate;
 
+    private String path;
+
     @ManyToMany
     @JoinTable( name = "book_author",
                 joinColumns = @JoinColumn(name = "book_id"),
                 inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<AuthorEntity> authors = new HashSet<>();
+    private List<AuthorEntity> authors;
 
     @ManyToMany
     @JoinTable( name = "book_genre",
                 joinColumns = @JoinColumn(name = "book_id"),
                 inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<GenreEntity> genres = new HashSet<>();
+    private List<GenreEntity> genres;
 
 }

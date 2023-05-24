@@ -1,5 +1,6 @@
 server:
   port: 8081
+  env: DEV
 spring:
   application:
     name: book-catalog
@@ -15,3 +16,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+
+S3:
+  bucketName: /home/moncef/Documents/DATA
+
+# swagger-ui custom path
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
